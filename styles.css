@@ -1,0 +1,109 @@
+html,
+body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#renderCanvas {
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+}
+
+#canvasZone {
+    width: 100%;
+    height: 100%;
+}
+
+.canvas-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.page-header {
+    color: #fff;
+    width: 25%;
+    text-align: center;
+    font-size: 2em;
+    font-weight: 100;
+    font-family: system-ui;
+    background-color: #0006;
+    padding: 0.25em;
+    margin: 0.5em;
+    border-radius: 0.25em;
+    border: 1px solid #00eaff;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.page-header-text {
+    color: #87e8ff;
+}
+.reset-button {
+    width: 5em;
+    background-color: #00eaff;
+    color: #000;
+    border-radius: 0.25em;
+    padding: 0.25em;
+    pointer-events: all;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    font-weight: 100;
+    font-family: system-ui;
+}
+.reset-button:hover {
+    background-color: #a3f7ff;
+}
+.max-height {
+    width: 50%;
+}
+.max-height-value {
+    color: #00eaff;
+}
+.current-height {
+    width: 50%;
+}
+.current-height-value {
+    color: #fff;
+}
+.special-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.5em;
+}
+
+.ammo-section {
+    position: absolute;
+    display: block;
+    bottom: 2em;
+    left: 45%;
+    color: #fff;
+    text-align: center;
+    font-size: 2em;
+    font-weight: 100;
+    font-family: system-ui;
+    background-color: #0006;
+    padding: 0.25em;
+    margin: 0.5em;
+    border-radius: 0.25em;
+    border: 1px solid #00eaff;
+}
+.ammo-label {
+
+}
+.ammo-value {
+    
+}

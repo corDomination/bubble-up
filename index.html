@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="styles.css" />
+        <title>Bubble</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
+        <script src="https://assets.babylonjs.com/generated/Assets.js"></script>
+        <script src="https://cdn.babylonjs.com/havok/HavokPhysics_umd.js"></script>
+        <script src="https://cdn.babylonjs.com/babylon.js"></script>
+        <script src="https://cdn.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+        <script src="https://cdn.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
+        <script src="https://cdn.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
+        <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+        <script src="https://cdn.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
+        <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
+        <script src="https://cdn.babylonjs.com/addons/babylonjs.addons.min.js"></script>
+        <script src="https://cdn.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
+
+
+    </head>
+    <body>
+        <div class="canvas-overlay">
+            <div class="page-header">
+                <div class="page-header-text">
+                    <img src="textures/logo.png">
+                </div>
+                <div class="instructions">Goal: See how high you can get</div>
+                <div class="special-container">
+                    <div class="max-height">
+                        <div class="max-height-label">Max Height (m)</div>
+                        <div class="max-height-value">0</div>
+                    </div>
+                    <div class="current-height">
+                        <div class="current-height-label">Current Height (m)</div>
+                        <div class="current-height-value">0</div>
+                    </div>
+                </div>
+            </div>
+            <div class="reset-button">Restart</div>
+            <div class="ammo-section">
+                <div class="ammo-label">Ammo</div>
+                <div class="ammo-value">0</div>
+            </div>
+        </div>
+        <div id="canvasZone"><canvas id="renderCanvas"></canvas></div>
+        <script src="modules/bubble-controller.js"></script>
+        <script src="modules/player-controller.js"></script>
+        <script src="modules/blaster-controller.js"></script>
+        <script src="modules/scene-controller.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>

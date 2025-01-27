@@ -1,0 +1,14 @@
+https://playground.babylonjs.com/#YPRRXT#11
+https://playground.babylonjs.com/#DXK12R#4
+https://playground.babylonjs.com/#DPV8HB#32
+https://playground.babylonjs.com/#KDP3IE#0
+https://playground.babylonjs.com/#EUH2VL#10
+https://playground.babylonjs.com/#12PWKI#0
+
+landing on ground resets ammo
+ammo visualized as spheres on back of gun
+going below kill plane resets
+reset button resets.
+
+add in more ground levels
+
