@@ -13,9 +13,8 @@ class BlasterController {
     async prepare() {
         const {scene, camera, canvas} = this.playerController.sceneController;
         var bubbleBlaster = await BABYLON.SceneLoader.ImportMeshAsync(null,
-            "/models/bubble-gun.glb"
+            "/models/bubble-gun-legacy.glb"
         );
-
         this.blasterRoot = bubbleBlaster.meshes[0];
         bubbleBlaster.meshes[1].rotation = new BABYLON.Vector3(0, Math.PI / 2, 0);
         bubbleBlaster.meshes[2].rotation = new BABYLON.Vector3(0, Math.PI / 2, 0);

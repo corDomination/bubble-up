@@ -47,11 +47,10 @@ body {
 }
 .reset-button {
     width: 5em;
-    background-color: #00eaff;
-    color: #000;
+    color: #00eaff;
     border-radius: 0.25em;
     padding: 0.25em;
-    pointer-events: all;
+    /* pointer-events: all; */
     text-align: center;
     cursor: pointer;
     display: flex;
@@ -60,9 +59,6 @@ body {
     font-size: 2em;
     font-weight: 100;
     font-family: system-ui;
-}
-.reset-button:hover {
-    background-color: #a3f7ff;
 }
 .max-height {
     width: 50%;
