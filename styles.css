@@ -1,3 +1,8 @@
+:focus
+{
+  outline:unset;
+}
+
 html,
 body {
     overflow: hidden;
@@ -5,6 +10,7 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+    outline: none;
 }
 
 #renderCanvas {
@@ -46,7 +52,7 @@ body {
     color: #87e8ff;
 }
 .reset-button {
-    width: 5em;
+    width: 15em;
     color: #00eaff;
     border-radius: 0.25em;
     padding: 0.25em;
@@ -59,6 +65,7 @@ body {
     font-size: 2em;
     font-weight: 100;
     font-family: system-ui;
+    margin-left: 1.25em;
 }
 .max-height {
     width: 50%;

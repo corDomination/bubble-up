@@ -27,7 +27,7 @@ class BubbleController {
         this.speed = direction;
 
         // Create a sphere shape and the associated body. Size will be determined automatically.
-        this.physicsSphere = new BABYLON.PhysicsAggregate(this.mesh, BABYLON.PhysicsShapeType.BOX, { mass: 0, restitution:4.0}, scene);
+        this.physicsSphere = new BABYLON.PhysicsAggregate(this.mesh, BABYLON.PhysicsShapeType.BOX, { mass: 0, restitution:1.8}, scene);
         // this.physicsSphere.body.setGravityFactor(0);
         this.physicsSphere.body.disablePreStep = false;
         this.physicsSphere.body.setCollisionCallbackEnabled(true)

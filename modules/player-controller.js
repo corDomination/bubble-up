@@ -20,6 +20,8 @@ class PlayerController {
 
     get SceneController() { return this.sceneController; }
 
+    get BlasterController() { return this.blasterController; }
+
     async prepare() {
         const {scene, camera, canvas} = this.sceneController;
         document.addEventListener("pointerlockchange", lockChangeAlert, false);
@@ -38,7 +40,7 @@ class PlayerController {
             }
         }
 
-        let ballDiameter = 1;
+        let ballDiameter = 2;
         let ballMass = 5;
         var ball = BABYLON.MeshBuilder.CreateSphere(
             "player",
@@ -90,7 +92,10 @@ class PlayerController {
 
         let jumpState = "idle";
 
-        scene.onBeforeRenderObservable.add(() => {
+        scene.onBeforePhysicsObservable.add(() => {
+            if (this.colliderBall.position.y < -100) {
+                location.reload();
+            }
             // Scale the angular sensitivity by delta time to normalize rotation speed
             scene.activeCamera.angularSensibility =
                 100 * this.baseAngularSensibility * scene.deltaTime;
@@ -101,7 +106,6 @@ class PlayerController {
             this.currentHeightElement.textContent = Math.round(ballPos.y-4);
             this.ammoElement.textContent = this.blasterController.ammo;
             camera.position = ballPos;
-            camera.position.y += 1;
 
             // Calculate the combined movement direction based on pressed keys
             let direction = new BABYLON.Vector3.Zero();
@@ -195,12 +199,24 @@ class PlayerController {
                     new BABYLON.Vector3(velocity.x, -this.terminalVelocity, velocity.z)
                 );
             }
-            if (velocity.y > this.terminalVelocity) {
-                ball.physicsAggregate.body.setLinearVelocity(
-                    new BABYLON.Vector3(velocity.x, this.terminalVelocity, velocity.z)
-                );
-            }
+            // if (velocity.y > this.terminalVelocity) {
+            //     ball.physicsAggregate.body.setLinearVelocity(
+            //         new BABYLON.Vector3(velocity.x, this.terminalVelocity, velocity.z)
+            //     );
+            // }
         });
+    }
+
+    launchPlayer() {
+        if (this.colliderBall == null) { return; }
+        let currentVelocity = this.colliderBall.physicsAggregate.body.getLinearVelocity();
+        this.colliderBall.physicsAggregate.body.setLinearVelocity(
+            new BABYLON.Vector3(
+                currentVelocity.x,
+                9.8 * 5,
+                currentVelocity.z
+            )
+        );
     }
 
     movementKeysPressed() {

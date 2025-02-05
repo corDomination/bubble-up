@@ -8,7 +8,10 @@ class SceneController {
         this.light = null;
         this.instanceContainer = null;
         this.resetButtonElement = document.querySelector('.reset-button');
+        this.tubeMaterial = null;
     }
+
+    get PlayerController() { return this.playerController; }
 
     async prepare() {
         this.engine = await new BABYLON.Engine(this.canvas, true, {
@@ -18,8 +21,8 @@ class SceneController {
         });
         this.scene = new BABYLON.Scene(this.engine);
 
-        const hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("textures/skybox.env", this.scene);
-        const hdrTexture2 = BABYLON.CubeTexture.CreateFromPrefilteredData("textures/skybox.env", this.scene);
+        const hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("./textures/skybox.env", this.scene);
+        const hdrTexture2 = BABYLON.CubeTexture.CreateFromPrefilteredData("./textures/skybox.env", this.scene);
         this.scene.environmentTexture = hdrTexture;
         this.scene.clearColor = new BABYLON.Color3(0.1, 0.1, 0.1);
         // this.scene.debugLayer.show();
@@ -28,11 +31,12 @@ class SceneController {
             new BABYLON.Vector3(30, 20, 20),
             this.scene
         );
-        this.camera.setTarget(new BABYLON.Vector3(0, 0, 0));
+        this.camera.setTarget(new BABYLON.Vector3(0, 20, 0));
         this.camera.attachControl(this.canvas, true);
         this.camera.inertia = 0;
         this.camera.fov = 1;
         this.camera.minZ = 0;
+        this.camera.maxZ = 100000;
         this.createPointerLock();
 
         this.light = new BABYLON.HemisphericLight(
@@ -40,7 +44,7 @@ class SceneController {
             new BABYLON.Vector3(0, 1, 0),
             this.scene
         );
-        this.createEnvironment();
+
         this.instanceContainer = new BABYLON.TransformNode("instance-container");
 
         this.light.intensity = 0.7;
@@ -51,11 +55,6 @@ class SceneController {
         window.scene = this.scene;
         globalThis.HK = await HavokPhysics();
         if (!this.engine) throw "engine should not be null.";
-        this.engine.runRenderLoop(() => {
-            if (this.scene && this.scene.activeCamera) {
-                this.scene.render();
-            }
-        });
 
         window.addEventListener("resize", () => {
             this.engine.resize();
@@ -65,8 +64,17 @@ class SceneController {
             this.reset();
         })
 
+        await this.createEnvironment();
+        const gl = new BABYLON.GlowLayer("glow", scene);
         this.playerController = new PlayerController(this);
         this.playerController.prepare();
+
+        this.engine.runRenderLoop(() => {
+            this.tubeMaterial.albedoTexture.vOffset += 0.0001;
+            if (this.scene && this.scene.activeCamera) {
+                this.scene.render();
+            }
+        });
     }
 
     createPointerLock() {
@@ -89,26 +97,38 @@ class SceneController {
 
     async createEnvironment()
     {
-        var ground1 = await BABYLON.SceneLoader.ImportMeshAsync(null,
-            "/models/tower.glb"
+        var tube = await BABYLON.SceneLoader.ImportMeshAsync(null,
+            "./models/tube.glb"
         );
-        ground1.meshes[1].visibility = 0.5;
+        const tubeRoot = tube.meshes[0];
+        tube.meshes[1].visibility = 0.02;
+        tubeRoot.scaling = new BABYLON.Vector3(5000, 25000, 5000);
+        this.tubeMaterial = tube.meshes[1].material;
+        this.tubeMaterial.albedoTexture.uScale = 1;
+        this.tubeMaterial.albedoTexture.vScale = 20;
+        for (let i = 0; i < 20; i++)
+        {
+            var ground = await BABYLON.SceneLoader.ImportMeshAsync(null,
+                "./models/tower.glb"
+            );
+            ground.meshes[1].visibility = 0.05;
+            if (i == 0) { continue; }
+            const x = (Math.random() - 0.5) * 160 * Math.sqrt(i * 2);
+            const y = i * 100 + Math.pow(i, 1.5) * 10;
+            const z = (Math.random() - 0.5) * 160 * Math.sqrt(i * 2);
+            ground.meshes[0].position = new BABYLON.Vector3(x, y, z);
+        }
 
-        var ground2 = await BABYLON.SceneLoader.ImportMeshAsync(null,
-            "/models/tower.glb"
-        );
+        for (let i = 0; i < 20; i++)
+        {
+            var specialBubble1 = new SpecialBubbleController(this);
+            const x = (Math.random() - 0.5) * 160 * Math.sqrt(i * 2);
+            const y = 50 + 200*i + Math.pow(i, 1.5) * 30;
+            const z = (Math.random() - 0.5) * 160 * Math.sqrt(i * 2);
+            await specialBubble1.prepare(new BABYLON.Vector3(x, y, z));
+        }
 
-        ground2.meshes[1].visibility = 0.5;
-        ground2.meshes[0].position = new BABYLON.Vector3(0, 100, 20);
-
-        var ground3 = await BABYLON.SceneLoader.ImportMeshAsync(null,
-            "/models/tower.glb"
-        );
-
-        ground3.meshes[1].visibility = 0.5;
-        ground3.meshes[0].position = new BABYLON.Vector3(-20, 300, -20);
-
-        let collisions = scene.meshes.filter((item) =>
+        let collisions = this.scene.meshes.filter((item) =>
             item.name.includes("#col")
         );
         collisions.forEach((mesh) => {
