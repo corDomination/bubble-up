@@ -66,6 +66,7 @@ class SceneController {
 
         await this.createEnvironment();
         const gl = new BABYLON.GlowLayer("glow", scene);
+        gl.intensity = 2;
         this.playerController = new PlayerController(this);
         this.playerController.prepare();
 
