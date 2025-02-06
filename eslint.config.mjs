@@ -7,7 +7,6 @@ export default [
   { languageOptions:
   {
     globals: globals.browser,
-    BABYLON: 'readonly',
   },
   },
   pluginJs.configs.recommended,
