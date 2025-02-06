@@ -11,6 +11,7 @@ body {
     margin: 0;
     padding: 0;
     outline: none;
+    background-color: #000;
 }
 
 #renderCanvas {
@@ -103,10 +104,4 @@ body {
     margin: 0.5em;
     border-radius: 0.25em;
     border: 1px solid #00eaff;
-}
-.ammo-label {
-
-}
-.ammo-value {
-    
 }

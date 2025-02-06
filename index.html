@@ -4,13 +4,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" type="text/css" href="styles.css" />
         <title>Bubble</title>
-        <script src="lib/havok/lib/umd/HavokPhysics_umd.js"></script>
-        <script src="lib/babylon.js"></script>
-        <script src="lib/babylonjs.postProcess.min.js"></script>
-        <script src="lib/babylonjs.loaders.js"></script>
-        <script src="lib/babylonjs.serializers.min.js"></script>
-        <script src="lib/babylon.inspector.bundle.js"></script>
-        <script src="lib/havok/lib/umd/HavokPhysics_umd.js"></script>
     </head>
     
     <body>
@@ -38,11 +31,7 @@
             </div>
         </div>
         <div id="canvasZone"><canvas id="renderCanvas"></canvas></div>
-        <script src="modules/special-bubble-controller.js"></script>
-        <script src="modules/bubble-controller.js"></script>
-        <script src="modules/player-controller.js"></script>
-        <script src="modules/blaster-controller.js"></script>
-        <script src="modules/scene-controller.js"></script>
-        <script src="entry.js"></script>
+        <script src="./renderer.js"></script>
+        <script type="module" src="entry.js"></script>
     </body>
 </html>
